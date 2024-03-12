@@ -16,6 +16,16 @@ import { ScrollArea } from "@radix-ui/react-scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Radar } from 'lucide-react';
 import { MessageCircle } from 'lucide-react';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Input } from "@/components/ui/input"
+import { SquareArrowUp } from 'lucide-react';
+
+
+
 
 
 export default function Home() {
@@ -41,7 +51,16 @@ export default function Home() {
                </CardContent>
                 <CardFooter className="flex-row space-x-2">
                   <Toggle><Flag/> 301 Flags</Toggle>
-                  <Toggle><MessageCircle/> 12 Comments</Toggle>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button value = "comms" variant="ghost"><MessageCircle/> 12 Comments</Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="flex-column">
+                      <Card className="self-start w-min space-x-1 space-y-1">
+                        <p>Nice!</p>
+                      </Card>
+                    </PopoverContent>
+                  </Popover>
                 </CardFooter>
               </Card>
               <Card>
@@ -121,7 +140,7 @@ export default function Home() {
               </Card>
             </TabsContent>
           <TabsContent value="messages">
-            <div className="columns-2 w-full">
+            <div className="columns-2 columns-lg w-full h-full">
               <div className="container-lg relative">
                 <Button asChild className="h-full">
                 <Card>
@@ -146,9 +165,12 @@ export default function Home() {
                   <Separator></Separator>
                   <CardContent>
                     <p>Here is the full message, just for you to read</p>
+                    <div className="flex-row">
+                    <Input type="message" placeholder="Respond"></Input> 
+                    <Button><SquareArrowUp></SquareArrowUp></Button>
+                    </div>
                   </CardContent>
                 </Card>
-                
               </div>
             </div>
           </TabsContent>
@@ -166,9 +188,21 @@ export default function Home() {
               </CardHeader>
               <Separator></Separator>
               <CardContent className="my-3 text-xl">
-                <h3>Current Faction: VSF <Radar/></h3>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button value = "comms" variant="ghost">Current Faction: VSF <Radar/></Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="flex-column">
+                      <Card className="self-start w-min space-x-1 space-y-1">
+                        <p>Banana</p>
+                      </Card>
+                    </PopoverContent>
+                  </Popover>
+                
                 <Separator></Separator>
-                <p>Here is the full message, just for you to read</p>
+                <p>   Profile information about you:
+                  <br/>Insert text here 
+                </p>
               </CardContent>
             </Card>   
           </TabsContent>
