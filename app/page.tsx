@@ -33,7 +33,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-5">
       <Tabs defaultValue="main_feed" className="">
           <TabsList className ="grid w-full grid-cols-3 fixed bottom-0 left-0 right-0 h-[50px]">
-            <TabsTrigger value="main_feed" className = "h-full">Main Feed</TabsTrigger>
+            <TabsTrigger value="main_feed" className = "h-full">Feed</TabsTrigger>
             <TabsTrigger value="messages" className = "h-full">Messages</TabsTrigger>
             <TabsTrigger value="profile" className = "h-full">Profile</TabsTrigger>
           </TabsList>
