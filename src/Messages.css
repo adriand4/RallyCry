@@ -1,0 +1,37 @@
+.messages {
+    padding: 20px;
+  }
+  
+  .messages__header {
+    margin-bottom: 20px;
+  }
+  
+  .messages__list {
+
+  }
+  
+  .conversation {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .conversation__avatar {
+    margin-right: 10px;
+  }
+  
+  .conversation__avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .conversation__details h3 {
+    margin: 0;
+  }
+  
+  .conversation__details p {
+    margin: 0;
+    color: gray;
+  }
+  

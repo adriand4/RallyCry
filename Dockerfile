@@ -4,8 +4,10 @@ WORKDIR /rallycry
 
 COPY . .
 
+ENV PORT 8081
+
 RUN npm install
 
 RUN npm run build
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
