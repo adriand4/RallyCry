@@ -19,13 +19,13 @@ function Profile() {
       try {
         // Check if the user is logged in
         const bouncerResponse = await fetch('https://api.cybernaut.app/bouncer', {
-          credentials: 'include', // Necessary for including cookies in the request
+          credentials: 'include',
         });
   
         if (bouncerResponse.ok) {
           // User is logged in, fetch user details
           const userResponse = await fetch('https://api.cybernaut.app/user', {
-            credentials: 'include', // Necessary for including cookies in the request
+            credentials: 'include',
           });
   
           if (userResponse.ok) {
