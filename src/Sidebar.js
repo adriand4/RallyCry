@@ -10,7 +10,7 @@ function Sidebar({ onOptionClick }) {
   const [showLoginWithGoogle, setShowLoginWithGoogle] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.cybernaut.app/bouncer",, {
+    fetch("https://api.cybernaut.app/bouncer", {
       credentials: 'include', // Necessary for including cookies in the request
     })
       .then(response => {
@@ -42,7 +42,8 @@ function Sidebar({ onOptionClick }) {
       
       {/* Conditionally render the "Log in with Google" button */}
       {showLoginWithGoogle && (
-        <Button class="mt-3 mb-3"
+        <Button 
+          class="mt-3"
           color="primary" 
           className="sidebar__login-google" 
           fullWidth
