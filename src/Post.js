@@ -1,96 +1,72 @@
-import React, { forwardRef, useState } from "react";
-import "./Post.css";
-import Avatar from "@mui/material/Avatar";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
-import FlagOutlinedIcon from '@mui/icons-material/FlagOutlined';
-import FlagIcon from '@mui/icons-material/Flag';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import RepeatOutlinedIcon from '@mui/icons-material/RepeatOutlined';
-import avatarImage from "./images.png"; 
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import "./Profile.css";
+import ProfileIcon from "./images.png";
+import MilitaryTechOutlinedIcon from '@mui/icons-material/MilitaryTechOutlined';
 
-const Post = forwardRef(
-  ({ displayName, username, verified, text, image, avatar }, ref) => {
-    const [flagActive, setFlagActive] = useState(false);
-    const [flagCount, setFlagCount] = useState(20);
-    const [showComments, setShowComments] = useState(false); 
-    const handleFlagClick = () => {
-      if (flagActive) {
-        setFlagActive(false);
-        setFlagCount(flagCount - 1);
-      } else {
-        setFlagActive(true);
-        setFlagCount(flagCount + 1); 
+function Profile() {
+  const [user, setUser] = useState({
+    name: "Guest",
+    handle: "@guest",
+    bio: "Log in to view Profile",
+    followers: 0,
+    following: 0,
+  });
+
+  useEffect(() => {
+    // Function to fetch user data
+    const fetchUserData = async () => {
+      try {
+        // Check if the user is logged in
+        const bouncerResponse = await axios.get('https://api.cybernaut.app/bouncer', {
+          credentials: 'include',
+        });
+        
+        if (bouncerResponse.status === 200) {
+          // User is logged in, fetch user details
+          const userResponse = await axios.get('https://api.cybernaut.app/user', {
+            credentials: 'include',
+          })
+          const userData = userResponse.data;
+
+          // Update state with the fetched data
+          setUser({
+            name: userData.Username,
+            handle: `@${userData.Username.toLowerCase()}`,
+            bio: `Current Faction: ${userData.FactionID || "None"}`,
+            // Assuming you want to include default values for followers and following
+            followers: user.followers,
+            following: user.following,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching user data", error);
+        // Handle unauthorized or other errors (e.g., keep the default user or update state to reflect the error)
       }
     };
-    const toggleComments = () => {
-      setShowComments(!showComments);
-    };
-   
 
-    
-    return (
-      <div className="post" ref={ref}>
-        <div className="post__avatar">
-          <Avatar src={avatarImage} alt="Avatar" />
+    fetchUserData();
+  }, []); // The empty array ensures this effect runs only once after the initial render
+
+  return (
+    <div className="profile">
+      <div className="profile__header">
+        <div className="profile__icon">
+            <img src={ProfileIcon} alt="Profile Icon" />
         </div>
-        <div className="post__body">
-          <div className="post__header">
-            <div className="post__headerText">
-              <h3>
-                {displayName}{" "}
-                <span className="post__headerSpecial">
-                  {verified && <VerifiedUserIcon className="post__badge" />} @
-                  {username}
-                </span>
-              </h3>
-            </div>
-            <div className="post__headerDescription">
-              <p>{text}</p>
-            </div>
+        <div className="profile__info">
+          <h2>{user.name}</h2>
+          <h3>{user.handle}</h3>
+          <p>{user.bio} <MilitaryTechOutlinedIcon fontSize="small" /></p>
+          <div className="profile__stats">
+            <p>Followers: {user.followers}</p>
+            <p>Following: {user.following}</p>
           </div>
-          <div className="post__footer">
-          <div className="flagContainer">
-              
-              {flagActive ? (
-                <FlagIcon fontSize="small" onClick={handleFlagClick} />
-              ) : (
-                <FlagOutlinedIcon fontSize="small" onClick={handleFlagClick} />
-              )}
-              <span className="flagCount">{flagCount}</span>
-            </div>
-            <ChatBubbleOutlineIcon fontSize="small" onClick={toggleComments} />
-            <RepeatOutlinedIcon fontSize="small" />
-          </div>
-          {showComments && (
-            <div className="post__comments">
-
-              <div className="post__comment">
-              <Avatar />
-                <div className="post__commentText">
-                  <p className="post__commentUsername">@Username</p>
-                  <p className="post__commentContent">This is the comment text</p> 
-                </div>
-              </div>
-              <div className="post__comment">
-                <Avatar /> 
-                <div className="post__commentText">
-                  <p className="post__commentUsername">@Username</p>
-                  <p className="post__commentContent">This is the comment text</p> 
-                </div>
-              </div>
-              <div className="post__comment">
-                <Avatar /> 
-                <div className="post__commentText">
-                  <p className="post__commentUsername">@Username</p>
-                  <p className="post__commentContent">This is the comment text</p> 
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
-    );
-  }
-);
+      {/* Remaining component structure */}
+    </div>
+  );
+}
 
-export default Post;
+export default Profile;
