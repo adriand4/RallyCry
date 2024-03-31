@@ -19,14 +19,14 @@ function Profile() {
       try {
         // Check if the user is logged in
         const bouncerResponse = await axios.get('https://api.cybernaut.app/bouncer', {
-          credentials: 'include',
+          withCredentials: true,
         });
         
         if (bouncerResponse.status === 200) {
           // User is logged in, fetch user details
           const userResponse = await axios.get('https://api.cybernaut.app/user', {
-            credentials: 'include',
-          })
+            withCredentials: true,
+          });
           const userData = userResponse.data;
 
           // Update state with the fetched data
