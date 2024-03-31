@@ -12,7 +12,7 @@ function Profile() {
     followers: 0,
     following: 0,
   });
-  
+
   useEffect(() => {
     // Function to fetch user data
     const fetchUserData = async () => {
@@ -54,9 +54,6 @@ function Profile() {
   
     fetchUserData();
   }, []);
-
-    fetchUserData();
-  }, []); // The empty array ensures this effect runs only once after the initial render
 
   return (
     <div className="profile">
