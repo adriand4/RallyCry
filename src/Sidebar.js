@@ -43,8 +43,9 @@ function Sidebar({ onOptionClick }) {
       {/* Conditionally render the "Log in with Google" button */}
       {showLoginWithGoogle && (
         <Button 
-          class="mt-3"
-          color="primary" 
+          class="mt-5"
+          variant="outlined"
+          color="secondary" 
           className="sidebar__login-google" 
           fullWidth
           onClick={handleLoginWithGoogle}
